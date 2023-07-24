@@ -1,13 +1,9 @@
 import express from "express"
 import { graphqlHTTP } from "express-graphql"
-import { buildSchema } from "graphql"
+import schema from "./schema/schema.js";
+import "dotenv/config";
 
-// Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`)
+const PORT = process.env.PORT || 8000
 
 // The root provides a resolver function for each API endpoint
 var root = {
@@ -21,9 +17,8 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema: schema,
-    rootValue: root,
-    graphiql: true,
+    graphiql: process.env.NODE_ENV === "development",
   })
 )
-app.listen(4000)
-console.log("Running a GraphQL API server at http://localhost:4000/graphql")
+app.listen(PORT)
+console.log(`Running a GraphQL API server at http://localhost:${PORT}/graphql`)
