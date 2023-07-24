@@ -1,18 +1,15 @@
 import express from "express"
 import { graphqlHTTP } from "express-graphql"
 import schema from "./schema/schema.js";
+import { connectDB } from "./config/db.js";
 import "dotenv/config";
 
 const PORT = process.env.PORT || 8000
 
-// The root provides a resolver function for each API endpoint
-var root = {
-  hello: () => {
-    return "Hello world!"
-  },
-}
-
 var app = express()
+
+connectDB()
+
 app.use(
   "/graphql",
   graphqlHTTP({
