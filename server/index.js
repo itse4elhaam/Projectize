@@ -2,11 +2,14 @@ import express from "express"
 import { graphqlHTTP } from "express-graphql"
 import schema from "./schema/schema.js";
 import { connectDB } from "./config/db.js";
+import cors from "cors"
 import "dotenv/config";
 
 const PORT = process.env.PORT || 8000
 
-var app = express()
+let app = express()
+
+app.use(cors())
 
 connectDB()
 
