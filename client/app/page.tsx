@@ -1,4 +1,5 @@
-import Clients from "src/components/Clients"
+import Clients from "../components/Clients"
+import ClientForm from "../components/ClientForm";
 
 
 export default function Home() {
@@ -7,6 +8,8 @@ export default function Home() {
 			<h1 className="font-bold">Zazu</h1>
 
 			<Clients />
+
+			<ClientForm />
 		</>
   );
 }

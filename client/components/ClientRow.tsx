@@ -3,7 +3,7 @@
 import { GET_CLIENTS } from "src/queries/clientQueries";
 import { DELETE_CLIENT } from "../mutations/ClientMutations";
 import { useMutation } from "@apollo/client";
-import { clientType } from '../queries/clientQueries';
+import { clientType } from "../queries/clientQueries";
 
 type ClientProps = {
 	id: string;
@@ -13,32 +13,35 @@ type ClientProps = {
 };
 
 export default function ClientRow({ id, name, email, phone }: ClientProps) {
-	const [deleteClient ] = useMutation(DELETE_CLIENT, {
-		refetchQueries: [{query: GET_CLIENTS}], // DOING THIS TOO MUCH MIGHT BOG DOWN YOUR APP
 
 
-		// ? why is this not working?
-		// update(cache, { data: { deleteClient  } }) {
-		// 	const { clients } = cache.readQuery({ query: GET_CLIENTS });
-		// 	cache.writeQuery({
-		// 		query: GET_CLIENTS,
-		// 		data: {
-		// 			clients: clients.filter(
-		// 				(client: clientType) => client.id !== deleteClient.id
-		// 			),
-		// 		},
-		// 	});
-		// },
+	// in the update function, we're basically using cache to fetch the current data by reading it and we're then later on using write query method to update it
+	const [deleteClient] = useMutation(DELETE_CLIENT, {
+		// refetchQueries: [{query: GET_CLIENTS}], // DOING THIS TOO MUCH MIGHT BOG DOWN YOUR APP
+		variables: { id },
+		update(cache, { data: { deleteClient } }) {
+			const { clients } = cache.readQuery({ query: GET_CLIENTS }) as {
+				clients: clientType[];
+			};
+			cache.writeQuery({
+				query: GET_CLIENTS,
+				data: {
+					clients: clients.filter(
+						(client: clientType) => client.id !== deleteClient.id
+					),
+				},
+			});
+		},
 	});
 
+	// ? why is this working and the previous way wasn't working
+	// it wasn't working because I wasn't setting the data correctly wasn't awaiting the funciton either
 
-	// ? why is this working and the previous way wasn't working 
-
-	async function handleDelete(id: string) {
+	async function handleDelete() {
 		try {
-			const { data } = await deleteClient({ variables: { id } });
+			const { data } = await deleteClient();
 
-			console.log("Deleted: ", data)
+			console.log("Deleted: ", data);
 		} catch (error: any) {
 			console.error("Failed to delete client:", error.message);
 		}
@@ -50,7 +53,7 @@ export default function ClientRow({ id, name, email, phone }: ClientProps) {
 			<h1>{email}</h1>
 			<h1>{phone}</h1>
 			<button
-				onClick={() => handleDelete(id)}
+				onClick={handleDelete}
 				className="px-4 py-2 cursor-pointer transition-colors duration-300 font-semi-bold bg-purple-60 bg-purple-600 text-white flex space-x-1 rounded-lg hover:bg-purple-950"
 			>
 				<svg

@@ -15,8 +15,7 @@ export default function Clients() {
 				!error &&
 				data.clients.map(
 					(client: clientType) =>
-						// TODO:use components here
-						< ClientRow key={client.id} id={client.id} name={client.name} phone={client.phone} email={client.email}/>
+						< ClientRow key={client.id} {...client}/>
 				)}
 		</>
 	);
