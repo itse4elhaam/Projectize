@@ -1,15 +1,17 @@
-import Clients from "../components/Clients"
-import ClientForm from "../components/ClientForm";
+import Clients from "../components/clients/Clients"
+import ClientForm from "../components/clients/ClientForm";
+import Projects from '../components/projects/Projects';
+import ProjectForm from "src/components/projects/ProjectForm";
 
 
 export default function Home() {
   return (
 		<>
-			<h1 className="font-bold">Zazu</h1>
-
+			<nav className="bg-transparent shadow-xl py-6"><h1 className="text-center text-[clamp(2.5rem,3.5vw,4rem)] font-bold text-purple-900">Projectify</h1></nav>
 			<Clients />
-
 			<ClientForm />
+			<Projects />
+			<ProjectForm />
 		</>
   );
 }

@@ -2,9 +2,9 @@
 
 import { FormEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_CLIENT } from "../mutations/ClientMutations";
+import { ADD_CLIENT } from "src/mutations/ClientMutations";
 import { GET_CLIENTS } from "src/queries/clientQueries";
-import { clientType } from '../queries/clientQueries';
+import { clientType } from '../../queries/clientQueries';
 
 
 export default function ClientForm() {

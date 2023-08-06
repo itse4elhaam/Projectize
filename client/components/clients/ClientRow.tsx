@@ -1,9 +1,9 @@
 "use client";
 
 import { GET_CLIENTS } from "src/queries/clientQueries";
-import { DELETE_CLIENT } from "../mutations/ClientMutations";
+import { DELETE_CLIENT } from "../../mutations/ClientMutations";
 import { useMutation } from "@apollo/client";
-import { clientType } from "../queries/clientQueries";
+import { clientType } from "../../queries/clientQueries";
 
 type ClientProps = {
 	id: string;
@@ -13,8 +13,6 @@ type ClientProps = {
 };
 
 export default function ClientRow({ id, name, email, phone }: ClientProps) {
-
-
 	// in the update function, we're basically using cache to fetch the current data by reading it and we're then later on using write query method to update it
 	const [deleteClient] = useMutation(DELETE_CLIENT, {
 		// refetchQueries: [{query: GET_CLIENTS}], // DOING THIS TOO MUCH MIGHT BOG DOWN YOUR APP

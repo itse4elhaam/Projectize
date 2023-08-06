@@ -7,8 +7,18 @@ import ClientRow from "./ClientRow";
 export default function Clients() {
 	const { loading, error, data } = useQuery(GET_CLIENTS);
 
-	if (loading) return <p className="animate-pulse">Loading...</p>;
-	if (error) return <p className="font-6xl text-red-600">Error</p>;
+    if (loading)
+		return (
+			<span className="animate-pulse text-lg mx-auto text-gray-700">
+				Loading...
+			</span>
+		);
+    if (error)
+		return (
+			<span className="text-red-500 font-bold text-lg text-center">
+				ERROR!
+			</span>
+		);
 	return (
 		<>
 			{!loading &&

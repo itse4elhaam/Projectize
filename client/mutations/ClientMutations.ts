@@ -8,7 +8,7 @@ export const ADD_CLIENT = gql`
 			email
 			phone
 	}
-	}
+	} 
 `;
 export const DELETE_CLIENT = gql`
 	mutation DeleteClient($id: String!) {

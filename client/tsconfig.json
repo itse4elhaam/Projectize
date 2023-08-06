@@ -23,6 +23,6 @@
       "src/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ClientRow.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/clients/ClientRow.tsx"],
   "exclude": ["node_modules"]
 }
